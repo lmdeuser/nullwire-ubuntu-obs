@@ -31,3 +31,7 @@ override_dh_auto_install:
 	install -Dm644 debian/nullwire.desktop debian/nullwire-buildtest/usr/share/applications/nullwire-buildtest.desktop
 	rm -f debian/nullwire-buildtest/usr/share/applications/org.telegram.desktop.desktop debian/nullwire-buildtest/usr/share/dbus-1/services/org.telegram.desktop.service debian/nullwire-buildtest/usr/share/metainfo/org.telegram.desktop.metainfo.xml
 	python3 debian/collect-notices.py .
+
+# Cargo source checksums include .orig files; these are inputs, not detritus.
+override_dh_clean:
+	dh_clean -Xdeps/

@@ -25,16 +25,17 @@ Updated: 2026-11-09, Asia/Yekaterinburg.
 - Original NullWire artwork was rendered and applied to 19 application image resources in the scratch source tree.
 - Upstream-pinned tg_owt (including submodules), TD E2E, tlottie, wallet-engine and RNNoise sources were fetched. Offline Rust resolution covered 225 packages. Rust 1.96.1 compiler, standard library and Cargo archives were checked against the official release manifest. Build preparation is local; compilation belongs in OBS.
 - Public repository created through `gh` CLI: https://github.com/lmdeuser/nullwire-ubuntu-obs (public, main branch).
-- 21 local unit tests passed before the initial public push.
+- Current local suite: 22 passing tests. The source-clean regression uses the real Debian cleanup target and checks that vendor checksums survive while ordinary temporary files are removed.
 - Workstation Arc A770: `vainfo` initialized the Intel iHD driver successfully and reported video-decoding entrypoints. `glxinfo -B` reported direct, accelerated rendering. These are driver checks, not NullWire playback acceptance.
 - Local browser access through Kimi WebBridge works. The user logged in to Telegram Core.
-- NullWire's API-application form was filled. Telegram returned `Too many attempts. Please try again later.` on submission; API credentials have not been issued. A second submission was made only after the user explicitly requested refilling the form, with the public GitHub URL; it returned the same limit. Registration is now paused; no further automatic attempts. The portal has not supplied a cooldown duration.
+- NullWire's API-application form was filled. Telegram returned `Too many attempts. Please try again later.` on submission; API credentials have not been issued. A second submission was made only after the user explicitly requested refilling the form, with the public GitHub URL; it returned the same limit. Registration is now paused; no further automatic attempts. The portal has not supplied a cooldown duration. The user later reported that a separate browser agent also received the same error after one submission, without retries or network changes; no API identity was obtained.
 
 ## Not complete
 
 - Production API identity and its private build-time injection route.
 - Complete native source compilation and the isolated OBS build test. The offline source bundle and build-test recipe were assembled; `dpkg-source -x` unpacked the complete package and applied both patches, and the patched-source check passed. The build-test launcher isolates its profile under the user cache directory; it must not use a migrated production profile.
-- Isolated source package `nullwire 7.4.1-obs3.test2` was submitted to OBS staging package `nullwire-buildtest`, source revision `e211ccd3048ca7b49be0449e3a16c784`. Native compilation is not yet verified.
+- Source test `7.4.1-obs3.test2` failed before Rust compilation: Debian cleanup removed checksummed `Cargo.toml.orig` vendor inputs. The issue was reproduced locally and fixed by excluding dependency sources from that cleanup.
+- Isolated source package `nullwire 7.4.1-obs3.test3` was submitted to OBS staging package `nullwire-buildtest`, source revision `4b1a0d1633f3e91af5bc0b51c70eb33b`. Native compilation is not yet verified.
 - The first solver result was ambiguous between the ordinary and extra FFmpeg runtime variants. Dedicated staging build preferences now select `libavcodec62`, `libavfilter11` and `libavformat62`, preserving other project configuration.
 - Source-build test inputs and results are recorded in `.state/source-buildtest/submission.json`; this package cannot be released to stable.
 - Exact source-built deb installation, GUI, removal/reinstallation and GPU playback checks.
