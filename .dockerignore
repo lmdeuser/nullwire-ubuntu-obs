@@ -1,0 +1,7 @@
+.state
+.git
+.agents
+.codex
+.aws
+__pycache__
+**/__pycache__

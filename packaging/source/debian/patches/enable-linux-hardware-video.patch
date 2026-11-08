@@ -1,0 +1,22 @@
+Description: Enable native hardware video decoding by default on Linux
+ Existing saved user preferences remain authoritative. The upstream backend
+ selector tries VA-API, VDPAU and CUDA and retains its software fallback.
+Author: dwolfF
+Forwarded: not-needed
+--- a/Telegram/SourceFiles/core/core_settings.h
++++ b/Telegram/SourceFiles/core/core_settings.h
+@@ -1172,11 +1172,11 @@
+ 	rpl::variable<Media::OrderMode> _playerOrderMode;
+ 	bool _macWarnBeforeQuit = true;
+ 	std::vector<uint64> _accountsOrder;
+-#ifdef Q_OS_MAC
++#if defined Q_OS_MAC || defined Q_OS_LINUX
+ 	bool _hardwareAcceleratedVideo = true;
+-#else // Q_OS_MAC
++#else // Q_OS_MAC || Q_OS_LINUX
+ 	bool _hardwareAcceleratedVideo = false;
+-#endif // Q_OS_MAC
++#endif // Q_OS_MAC || Q_OS_LINUX
+ 	HistoryView::DoubleClickQuickAction _chatQuickAction
+ 		= HistoryView::DoubleClickQuickAction();
+ 	bool _translateButtonEnabled = false;

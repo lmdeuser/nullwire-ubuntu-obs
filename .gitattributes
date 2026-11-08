@@ -1,0 +1,2 @@
+# Unified patch context contains a mandatory leading space before upstream tabs.
+*.patch -whitespace
