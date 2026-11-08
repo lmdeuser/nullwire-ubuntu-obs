@@ -24,7 +24,8 @@ override_dh_auto_test:
 
 override_dh_auto_install:
 	dh_auto_install --destdir=debian/nullwire-buildtest
-	install -Dm755 out/Telegram debian/nullwire-buildtest/usr/bin/nullwire-buildtest
+	install -Dm755 debian/nullwire-buildtest/usr/bin/Telegram debian/nullwire-buildtest/usr/lib/nullwire-buildtest/NullWire
+	install -Dm755 debian/nullwire-buildtest-wrapper debian/nullwire-buildtest/usr/bin/nullwire-buildtest
 	find debian/nullwire-buildtest/usr/bin -type f ! -name nullwire-buildtest -delete
 	install -Dm644 debian/nullwire.svg debian/nullwire-buildtest/usr/share/icons/hicolor/scalable/apps/nullwire.svg
 	install -Dm644 debian/nullwire.desktop debian/nullwire-buildtest/usr/share/applications/nullwire-buildtest.desktop

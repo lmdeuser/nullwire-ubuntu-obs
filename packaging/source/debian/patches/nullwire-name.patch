@@ -12,3 +12,16 @@ Forwarded: not-needed
  constexpr auto AppFile = "Telegram"_cs;
  constexpr auto AppVersion = 7004001;
  constexpr auto AppVersionStr = "7.4.1";
+--- a/Telegram/SourceFiles/intro/intro_start.cpp
++++ b/Telegram/SourceFiles/intro/intro_start.cpp
+@@ -24,8 +24,8 @@
+ 	not_null<Data*> data)
+ : Step(parent, account, data, true) {
+ 	setMouseTracking(true);
+-	setTitleText(rpl::single(u"Telegram Desktop"_q));
+-	setDescriptionText(tr::lng_intro_about());
++	setTitleText(rpl::single(u"NullWire"_q));
++	setDescriptionText(rpl::single(u"Unofficial Telegram API client for Ubuntu."_q));
+ 	show();
+ }
+ 

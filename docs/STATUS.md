@@ -28,13 +28,15 @@ Updated: 2026-11-09, Asia/Yekaterinburg.
 - 21 local unit tests passed before the initial public push.
 - Workstation Arc A770: `vainfo` initialized the Intel iHD driver successfully and reported video-decoding entrypoints. `glxinfo -B` reported direct, accelerated rendering. These are driver checks, not NullWire playback acceptance.
 - Local browser access through Kimi WebBridge works. The user logged in to Telegram Core.
-- NullWire's API-application form was filled. Telegram returned `Too many attempts. Please try again later.` on submission; API credentials have not been issued. A second submission was made only after the user explicitly requested refilling the form, with the public GitHub URL; it returned the same limit.
+- NullWire's API-application form was filled. Telegram returned `Too many attempts. Please try again later.` on submission; API credentials have not been issued. A second submission was made only after the user explicitly requested refilling the form, with the public GitHub URL; it returned the same limit. Registration is now paused; no further automatic attempts. The portal has not supplied a cooldown duration.
 
 ## Not complete
 
 - Production API identity and its private build-time injection route.
-- Complete native source compilation and the isolated OBS build test. The offline source bundle and build-test recipe were assembled; `dpkg-source -x` unpacked the complete package and applied both patches, and the patched-source check passed.
-- Source-build test uploads and results are recorded in `.state/source-buildtest/submission.json` and the OBS package `nullwire-buildtest`; this package cannot be released to stable.
+- Complete native source compilation and the isolated OBS build test. The offline source bundle and build-test recipe were assembled; `dpkg-source -x` unpacked the complete package and applied both patches, and the patched-source check passed. The build-test launcher isolates its profile under the user cache directory; it must not use a migrated production profile.
+- Isolated source package `nullwire 7.4.1-obs3.test2` was submitted to OBS staging package `nullwire-buildtest`, source revision `e211ccd3048ca7b49be0449e3a16c784`. Native compilation is not yet verified.
+- The first solver result was ambiguous between the ordinary and extra FFmpeg runtime variants. Dedicated staging build preferences now select `libavcodec62`, `libavfilter11` and `libavformat62`, preserving other project configuration.
+- Source-build test inputs and results are recorded in `.state/source-buildtest/submission.json`; this package cannot be released to stable.
 - Exact source-built deb installation, GUI, removal/reinstallation and GPU playback checks.
 - Stable publication and APT installation on the workstation.
 - Verified profile backup and migration. The initial archive verification failed after the Snap client was opened under its different executable name. The process guard now detects both names, with regression tests. The original Snap profile remains in place and no native profile was installed by that attempt. The archive is private and must not be treated as verified.

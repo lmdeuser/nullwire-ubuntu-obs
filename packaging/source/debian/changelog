@@ -1,7 +1,8 @@
-nullwire (7.4.1-obs3.test1) resolute; urgency=medium
+nullwire (7.4.1-obs3.test2) resolute; urgency=medium
 
   * Prepare an isolated source-build test, not a production release.
   * Enable native Linux hardware video decoding by default.
+  * Isolate the build-test profile and use the installed binary path.
   * Give the unofficial client its own name and original icon.
 
  -- dwolfF <dwolfF@users.noreply.build.opensuse.org>  Mon, 09 Nov 2026 00:00:00 +0500

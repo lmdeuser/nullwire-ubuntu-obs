@@ -13,7 +13,7 @@ import pipeline as obs
 
 ROOT=Path(__file__).resolve().parents[1]
 VERSION='7.4.1'
-DEB_VERSION=VERSION+'-obs3.test1'
+DEB_VERSION=VERSION+'-obs3.test2'
 PACKAGE='nullwire-buildtest'
 SOURCE='nullwire'
 FOLDER=ROOT/'.state/source-buildtest'
@@ -68,14 +68,23 @@ Files:
 
 def submit(files):
     project=obs.STAGING;path=f'/source/{project}/{PACKAGE}'
+    config_path=f'/source/{project}/_config'
+    config=obs.api(config_path)
+    preference='Prefer: libavcodec62 libavfilter11 libavformat62'
+    if preference not in config.splitlines():
+        obs.api(config_path,'PUT',config.rstrip()+'\n'+preference+'\n')
     try:obs.api(path+'/_meta')
     except __import__('subprocess').CalledProcessError as e:
         if '404' not in e.stderr:raise
         obs.api(path+'/_meta','PUT',f'<package name="{PACKAGE}" project="{project}"><title>NullWire isolated source build test</title><description>Limited test API identity. Not for login, migration or stable release.</description><publish><disable/></publish></package>')
+    current={entry.attrib['name']:entry.attrib['md5'] for entry in ET.fromstring(obs.api(path)) if entry.tag=='entry'}
     listing=ET.Element('directory')
     for file in files:
-        obs.api(path+'/'+file.name+'?rev=repository','PUT',file=file)
-        ET.SubElement(listing,'entry',name=file.name,md5=hashlib.md5(file.read_bytes()).hexdigest())
+        digest=hashlib.md5(file.read_bytes()).hexdigest()
+        if current.get(file.name)!=digest:
+            print('Uploading source file:',file.name,flush=True)
+            obs.api(path+'/'+file.name+'?rev=repository','PUT',file=file)
+        ET.SubElement(listing,'entry',name=file.name,md5=digest)
     response=ET.fromstring(obs.api(path+'?cmd=commitfilelist&comment=NullWire-offline-source-build-test','POST',ET.tostring(listing,encoding='unicode')))
     record=dict(package=PACKAGE,source_version=DEB_VERSION,srcmd5=response.attrib['srcmd5'],build_mode='source',api_identity='test',release_allowed=False,files={p.name:obs.sha256(p) for p in files})
     obs.save_json(FOLDER/'submission.json',record)

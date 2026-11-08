@@ -1,0 +1,6 @@
+#!/bin/sh
+set -eu
+profile="${XDG_CACHE_HOME:-$HOME/.cache}/nullwire-buildtest"
+mkdir -p "$profile"
+chmod 700 "$profile"
+exec /usr/lib/nullwire-buildtest/NullWire -many -workdir "$profile" "$@"
