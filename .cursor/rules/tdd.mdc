@@ -1,0 +1,14 @@
+---
+description: Require test-driven changes to NullWire packaging, automation and migration behavior.
+alwaysApply: true
+---
+
+# Test-driven development
+
+- Before changing executable behavior, add or update a relevant automated test and run it to observe the expected failure. Then implement the smallest fix, run the focused test, and refactor only while checks remain green.
+- Cover observable behavior and material guards. Prefer a real tool invocation or boundary fixture over assertions that copy the implementation.
+- Existing code needs characterization tests before modification; adding tests afterward does not retroactively establish TDD.
+- Keep evidence of meaningful Red/Green cycles in docs/TESTING.md or the relevant bug record. Do not claim success from an import failure alone when the intended behavior has not been exercised.
+- Compile Telegram and its dependencies in OBS. Local unit tests, source checks and package/GUI acceptance run locally with a disk-backed TMPDIR.
+- Run the relevant tests and the required project suite before source upload. A failed, skipped required, or missing release check blocks publication and migration.
+- Documentation and static artwork need review or visual checks; there is no need to invent unit tests for prose or image pixels.

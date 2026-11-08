@@ -22,7 +22,9 @@ The package must provide the required runtime libraries without forcing an Intel
 
 The source pipeline is not yet complete. `tools/pipeline.py` retains the OBS primitives and the historical repack experiment for inspection; its CLI prevents using that experiment to publish a release. Do not bypass the source-release guards.
 
-## Local checks
+## Development and local checks
+
+This project requires TDD for executable behavior. Follow [the testing policy and evidence](docs/TESTING.md): demonstrate a relevant failing test before implementation, then make it pass and keep the focused checks green.
 
 ```sh
 export TMPDIR=/srv/temp/telegram

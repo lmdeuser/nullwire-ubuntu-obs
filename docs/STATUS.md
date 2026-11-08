@@ -4,6 +4,8 @@ Updated: 2026-11-09, Asia/Yekaterinburg.
 
 ## Accepted scope
 
+TDD is mandatory for executable changes; see `TESTING.md`, `AGENTS.md` and `.cursor/rules/tdd.mdc`. Existing migration boundaries now have synthetic characterization tests before further changes.
+
 - Native Ubuntu 26.04 amd64 Debian package, distributed from the user's OBS project.
 - Build Telegram Desktop from sources, with native hardware video decoding enabled by default on compatible hardware.
 - Use the existing small server only as a lightweight OBS trigger. All compilation belongs in OBS; local tests run on the workstation.
@@ -25,7 +27,7 @@ Updated: 2026-11-09, Asia/Yekaterinburg.
 - Original NullWire artwork was rendered and applied to 19 application image resources in the scratch source tree.
 - Upstream-pinned tg_owt (including submodules), TD E2E, tlottie, wallet-engine and RNNoise sources were fetched. Offline Rust resolution covered 225 packages. Rust 1.96.1 compiler, standard library and Cargo archives were checked against the official release manifest. Build preparation is local; compilation belongs in OBS.
 - Public repository created through `gh` CLI: https://github.com/lmdeuser/nullwire-ubuntu-obs (public, main branch).
-- Current local suite: 22 passing tests. The source-clean regression uses the real Debian cleanup target and checks that vendor checksums survive while ordinary temporary files are removed.
+- Current local suite: 28 passing tests. The source-clean regression uses the real Debian cleanup target and checks that vendor checksums survive while ordinary temporary files are removed.
 - Workstation Arc A770: `vainfo` initialized the Intel iHD driver successfully and reported video-decoding entrypoints. `glxinfo -B` reported direct, accelerated rendering. These are driver checks, not NullWire playback acceptance.
 - Local browser access through Kimi WebBridge works. The user logged in to Telegram Core.
 - NullWire's API-application form was filled. Telegram returned `Too many attempts. Please try again later.` on submission; API credentials have not been issued. A second submission was made only after the user explicitly requested refilling the form, with the public GitHub URL; it returned the same limit. Registration is now paused; no further automatic attempts. The portal has not supplied a cooldown duration. The user later reported that a separate browser agent also received the same error after one submission, without retries or network changes; no API identity was obtained.
