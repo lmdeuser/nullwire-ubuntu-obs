@@ -1,5 +1,6 @@
-nullwire (7.4.1-obs3.test3) resolute; urgency=medium
+nullwire (7.4.1-obs3.test4) resolute; urgency=medium
 
+  * Generate bindings from the Rust workspace for Cargo metadata lookup.
   * Preserve checksummed vendor inputs during Debian cleanup.
   * Prepare an isolated source-build test, not a production release.
   * Enable native Linux hardware video decoding by default.

@@ -13,7 +13,7 @@ import pipeline as obs
 
 ROOT=Path(__file__).resolve().parents[1]
 VERSION='7.4.1'
-DEB_VERSION=VERSION+'-obs3.test3'
+DEB_VERSION=VERSION+'-obs3.test4'
 PACKAGE='nullwire-buildtest'
 SOURCE='nullwire'
 FOLDER=ROOT/'.state/source-buildtest'

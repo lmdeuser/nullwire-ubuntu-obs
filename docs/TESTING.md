@@ -14,6 +14,8 @@ Existing code requires characterization coverage before further modification. An
 
 ## Current evidence
 
+- Binding-generator working directory: the build-command fixture invokes real Cargo metadata. It failed with the same missing `Cargo.toml` error as OBS when run from the package root. Running the binding command from the Rust workspace makes the metadata probe pass. The fixture stops before unrelated compilation; actual binding generation remains an OBS integration check.
+
 - Debian vendor cleanup: `test_actual_clean_target_preserves_vendor_checksums` ran the real `debian/rules clean` against a fixture containing a Cargo checksummed `.orig` file. It failed because the source file disappeared. Adding `dh_clean -Xdeps/` made it pass while a temporary `.orig` outside dependencies was still removed. This is a confirmed behavioral Red/Green cycle.
 - Linux video default: the source check failed on the original 7.4.1 settings and passed after applying the Linux-default patch. It checks preprocessed Linux behavior and the preserved upstream backend/fallback source. This is source-level evidence, not GPU playback acceptance.
 - Snap executable detection: tests cover both the Snap `telegram-desktop` executable and upstream `Telegram`, including a replaced/deleted executable. The tests failed before the detector was added.

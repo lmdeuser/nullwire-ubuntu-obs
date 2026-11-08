@@ -24,9 +24,11 @@ PY
 cargo rustc --locked --offline --manifest-path deps/tdesktop_rust/Cargo.toml --lib --release --crate-type staticlib --crate-type cdylib
 install -m644 deps/tdesktop_rust/target/release/libtdesktop_rust.a "$prefix/lib/"
 install -m644 deps/tlottie/include/tlottie.h "$prefix/include/tlottie/"
-cargo run --locked --offline --manifest-path deps/wallet-engine/bindgen/cpp/bindgen/Cargo.toml -- \
+pushd deps/tdesktop_rust
+cargo run --locked --offline --manifest-path ../wallet-engine/bindgen/cpp/bindgen/Cargo.toml -- \
  --library --out-dir "$prefix/include/wallet_engine" \
  "$root/deps/tdesktop_rust/target/release/libtdesktop_rust.so"
+popd
 cmake -S deps/tg_owt -B .build-owt -G Ninja \
  -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX="$prefix" -DCMAKE_INSTALL_LIBDIR=lib \
  -DTG_OWT_DLOPEN_PIPEWIRE=ON -DCMAKE_DISABLE_FIND_PACKAGE_absl=ON
