@@ -31,6 +31,8 @@ python3 -m unittest discover -s tests -v
 bash -n tools/*.sh
 ```
 
+The draft `packaging/source/debian/` recipe is an isolated build test using the limited sample API identity. It has not completed an OBS source build and must not be used for login or a stable release.
+
 The Linux hardware-decoding default patch is in `packaging/source/debian/patches/`. It was checked against the exact upstream 7.4.1 full-source archive with zero patch fuzz; this check is not a compilation or playback test.
 
 `.state/` is private scratch. It can contain OBS cookies, downloaded archives and migration backups; it is excluded from Git and Docker build contexts. Do not upload it.

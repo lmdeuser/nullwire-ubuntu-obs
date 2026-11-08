@@ -27,3 +27,7 @@ The historical repack pipeline remains for audit, with its CLI disabled and an a
 ## Migration
 
 Close all client processes, including the Snap executable's actual process name. Validate source and destination paths, refuse symlink escapes and an existing native profile, create a private backup, verify it, copy the profile and verify the copy. Preserve the source profile and rollback path. Only disable the old installation after the new client has passed acceptance.
+
+## Isolated source-build test
+
+`tools/prepare-source-test.py --submit` prepares a Debian source package and uploads it to the unpublished staging package `nullwire-buildtest`. It combines the verified upstream full-source archive with an offline dependency archive and checked Rust build-tool components. `packaging/source/dependencies.lock.json` records upstream commits and input digests. The recipe compiles dependencies and the app inside the OBS worker; no mini-PC compilation or local application compilation is involved. Its limited sample API identity and package name isolate it from production and profile migration.

@@ -1,0 +1,14 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: Telegram Desktop (NullWire unofficial source build)
+Source: https://github.com/telegramdesktop/tdesktop/releases/tag/v7.4.1
+
+Files: *
+Copyright: 2014-2026 John Preston and Telegram Desktop contributors
+License: GPL-3.0 with OpenSSL exception
+ Preserve the upstream LICENSE and LEGAL files. Dependencies retain their
+ individual notices and licenses and must be distributed with their sources.
+
+Files: debian/*
+Copyright: 2026 dwolfF
+License: GPL-3.0-or-later
+ On Debian systems the GPL-3 text is in /usr/share/common-licenses/GPL-3.

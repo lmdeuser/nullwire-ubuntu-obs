@@ -1,0 +1,54 @@
+{
+  "patches": {
+    "url": "https://github.com/desktop-app/patches.git",
+    "revision": "a59fc82462fb2987e9f0ee1498e2db694410ae81"
+  },
+  "tg_owt": {
+    "url": "https://github.com/desktop-app/tg_owt.git",
+    "revision": "020feec5c040fdae2cf752c2c2be62ddde7c236d",
+    "submodules": [
+      " d7aaad83b488fd62bd51c81ecf16cd938532cc0a src/third_party/abseil-cpp (d7aaad8)",
+      " 21fc8ef30415a635e7351ffa0e5d5367943d4a94 src/third_party/crc32c/src (21fc8ef)",
+      " e991355c02b93fe17713efe04cbc2e278e00fdbd src/third_party/crc32c/src/third_party/benchmark (e991355)",
+      " 56523194b3ce1212414c93d55f31832e94677f55 src/third_party/crc32c/src/third_party/glog (5652319)",
+      " 3b49be074d5c1340eeb447e6a8e78427051e675a src/third_party/crc32c/src/third_party/googletest (3b49be0)",
+      " a566a9cfcd619e8327784aa7cff4a1276dc1e895 src/third_party/libsrtp (a566a9c)",
+      " 04821d1e7d60845525e8db55c7bcd41ef5be9406 src/third_party/libyuv (04821d1)"
+    ]
+  },
+  "tde2e": {
+    "url": "https://github.com/tdlib/td.git",
+    "revision": "51743dfd01dff6179e2d8f7095729caa4e2222e9"
+  },
+  "tlottie": {
+    "url": "https://github.com/dkaraush/tlottie.git",
+    "revision": "92df98dc209bc39b1e567ec74a8c86a0af5239de"
+  },
+  "wallet-engine": {
+    "url": "https://github.com/i582/wallet-engine.git",
+    "revision": "e59e0d89d7ee90c388bf36e3334c5b276f396697",
+    "applied_patch_sha256": "b40aba82c39a42d0526a85ecfa40d613baa57b1a2d6600e601a42a1576b3b822"
+  },
+  "rust-toolchain": {
+    "rustc": {
+      "xz_url": "https://static.rust-lang.org/dist/2026-06-30/rustc-1.96.1-x86_64-unknown-linux-gnu.tar.xz",
+      "xz_hash": "3545a0efad2355ecb0a3b9ac02efee96e27f1f9d24b7ce2fc3f279b2efb0d923"
+    },
+    "rust-std": {
+      "xz_url": "https://static.rust-lang.org/dist/2026-06-30/rust-std-1.96.1-x86_64-unknown-linux-gnu.tar.xz",
+      "xz_hash": "1bf4fde5048cca33e6ea00c7471281ed96d792f6923141e3db45072743a1afae"
+    },
+    "cargo": {
+      "xz_url": "https://static.rust-lang.org/dist/2026-06-30/cargo-1.96.1-x86_64-unknown-linux-gnu.tar.xz",
+      "xz_hash": "ecc53a3c49fab5ab8c9301b3bbc8fb1dff9be6c65287add3f57a0fe8fddfea9e"
+    }
+  },
+  "rnnoise": {
+    "url": "https://github.com/xiph/rnnoise.git",
+    "revision": "904a876dce1f9ab8860c0a5000ed151f9f6eef58",
+    "model_url": "https://media.xiph.org/rnnoise/models/rnnoise_data-0b50c45.tar.gz",
+    "model_sha256": "4ac81c5c0884ec4bd5907026aaae16209b7b76cd9d7f71af582094a2f98f4b43"
+  },
+  "combined_rust_lock_sha256": "c95455e0704a307d88e20893935fccc700a5446a7f2aa73e94c03c4ae702a1e5",
+  "bindings_rust_lock_sha256": "1aa2fea787d489f5bc9a005d797627c81720ebc4714e0db2887b96a2a4435ac5"
+}

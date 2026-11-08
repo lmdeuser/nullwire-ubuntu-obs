@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Name=NullWire Build Test
+Comment=Unofficial Telegram API client — build test only
+Exec=/usr/bin/nullwire-buildtest
+Icon=nullwire
+NoDisplay=true
+Terminal=false
+Categories=Network;InstantMessaging;Qt;
+StartupWMClass=TelegramDesktop

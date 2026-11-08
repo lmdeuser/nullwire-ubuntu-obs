@@ -1,0 +1,32 @@
+#!/usr/bin/make -f
+export TMPDIR := $(CURDIR)/.build-tmp
+export CARGO_HOME := $(CURDIR)/.build-cargo
+export CARGO_NET_OFFLINE := true
+export CARGO_BUILD_JOBS := 2
+export CMAKE_PREFIX_PATH := $(CURDIR)/.build-deps/usr
+export PKG_CONFIG_PATH := $(CURDIR)/.build-deps/usr/lib/pkgconfig:$(CURDIR)/.build-deps/usr/lib/x86_64-linux-gnu/pkgconfig
+export DEB_BUILD_MAINT_OPTIONS = hardening=+all
+
+%:
+	mkdir -p "$(TMPDIR)"
+	dh $@ --buildsystem=cmake --builddirectory=out
+
+override_dh_auto_configure:
+	bash debian/build-deps.sh
+	python3 debian/brand-source.py .
+	dh_auto_configure -- -DCMAKE_BUILD_TYPE=Release -DDESKTOP_APP_USE_PACKAGED=ON -DDESKTOP_APP_DISABLE_AUTOUPDATE=ON -DDESKTOP_APP_DISABLE_CRASH_REPORTS=ON -DDESKTOP_APP_DISABLE_PRIVATE_QT_API=ON -DDESKTOP_APP_DISABLE_QT_PLUGINS=ON -DTDESKTOP_API_TEST=ON -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_INSTALL_LIBDIR=lib/x86_64-linux-gnu -DDESKTOP_APP_TDESKTOP_RUST_LIBRARY=$(CURDIR)/.build-deps/usr/lib/libtdesktop_rust.a
+
+override_dh_auto_build:
+	cmake --build out --parallel 2
+
+override_dh_auto_test:
+	python3 debian/check-source.py .
+
+override_dh_auto_install:
+	dh_auto_install --destdir=debian/nullwire-buildtest
+	install -Dm755 out/Telegram debian/nullwire-buildtest/usr/bin/nullwire-buildtest
+	find debian/nullwire-buildtest/usr/bin -type f ! -name nullwire-buildtest -delete
+	install -Dm644 debian/nullwire.svg debian/nullwire-buildtest/usr/share/icons/hicolor/scalable/apps/nullwire.svg
+	install -Dm644 debian/nullwire.desktop debian/nullwire-buildtest/usr/share/applications/nullwire-buildtest.desktop
+	rm -f debian/nullwire-buildtest/usr/share/applications/org.telegram.desktop.desktop debian/nullwire-buildtest/usr/share/dbus-1/services/org.telegram.desktop.service debian/nullwire-buildtest/usr/share/metainfo/org.telegram.desktop.metainfo.xml
+	python3 debian/collect-notices.py .

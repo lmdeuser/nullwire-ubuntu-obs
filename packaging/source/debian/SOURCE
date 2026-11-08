@@ -1,0 +1,17 @@
+NullWire is an independent Telegram API desktop client built from Telegram Desktop sources.
+This package is an isolated source-build test and uses the limited sample API identity.
+It is not suitable for login, migration or publication to the stable APT repository.
+
+Complete source inputs, bundled dependency sources, the build-toolchain archives and
+Debian recipes are provided by the source package in OBS:
+https://build.opensuse.org/package/show/home:dwolfF:telegram:staging/nullwire-buildtest
+
+Packaging and patches:
+https://github.com/lmdeuser/nullwire-ubuntu-obs
+
+Upstream:
+https://github.com/telegramdesktop/tdesktop/releases/tag/v7.4.1
+
+Native hardware video decoding defaults to enabled on Linux. The upstream backend
+selector and software fallback are preserved. Hardware and driver support varies.
+Existing user preferences are not overwritten by the new default.
