@@ -14,6 +14,8 @@ Existing code requires characterization coverage before further modification. An
 
 ## Current evidence
 
+- Immutable dependency bundle: source-preparation tests showed that changed bytes and a missing dependency pin were accepted before the fix. The preparer now requires the recorded SHA-256 and verifies actual archive bytes before creating/uploading source inputs; reviewed inputs still pass.
+
 - Binding-generator working directory: the build-command fixture invokes real Cargo metadata. It failed with the same missing `Cargo.toml` error as OBS when run from the package root. Running the binding command from the Rust workspace makes the metadata probe pass. The fixture stops before unrelated compilation; actual binding generation remains an OBS integration check.
 
 - Debian vendor cleanup: `test_actual_clean_target_preserves_vendor_checksums` ran the real `debian/rules clean` against a fixture containing a Cargo checksummed `.orig` file. It failed because the source file disappeared. Adding `dh_clean -Xdeps/` made it pass while a temporary `.orig` outside dependencies was still removed. This is a confirmed behavioral Red/Green cycle.

@@ -50,5 +50,6 @@
     "model_sha256": "4ac81c5c0884ec4bd5907026aaae16209b7b76cd9d7f71af582094a2f98f4b43"
   },
   "combined_rust_lock_sha256": "c95455e0704a307d88e20893935fccc700a5446a7f2aa73e94c03c4ae702a1e5",
-  "bindings_rust_lock_sha256": "1aa2fea787d489f5bc9a005d797627c81720ebc4714e0db2887b96a2a4435ac5"
+  "bindings_rust_lock_sha256": "1aa2fea787d489f5bc9a005d797627c81720ebc4714e0db2887b96a2a4435ac5",
+  "dependency_archive_sha256": "096855ab3164ccfd1d17943cb6e357d7426cb81294599acdfd20de34d09cd71e"
 }

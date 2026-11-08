@@ -4,6 +4,7 @@ import argparse
 import hashlib
 import json
 import os
+import re
 from pathlib import Path
 import shutil
 import tarfile
@@ -43,6 +44,10 @@ def prepare():
         for key,value in [('file','_service:download_url:'+name),('verifier','sha256'),('checksum',digest)]:ET.SubElement(check,'param',name=key).text=value
     dependencies=FOLDER/f'{SOURCE}_{VERSION}.orig-deps.tar.xz'
     if not dependencies.is_file():raise ValueError('offline source dependency archive is not ready')
+    expected=lock.get('dependency_archive_sha256')
+    if not isinstance(expected,str) or not re.fullmatch(r'[0-9a-f]{64}',expected):
+        raise ValueError('missing or invalid dependency archive SHA256 pin')
+    verify(dependencies,expected)
     files.append(dependencies)
     debian=ROOT/'packaging/source/debian'
     rules=(debian/'rules').read_text()
