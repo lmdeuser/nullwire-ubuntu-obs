@@ -53,3 +53,24 @@ class DependencyInputTests(unittest.TestCase):
 
     def test_reviewed_dependency_bundle_is_accepted(self):
         self.assertIn(self.archive,p.prepare())
+
+
+class BuildDependencyTests(unittest.TestCase):
+    def test_tdutils_generator_has_gperf(self):
+        control=(ROOT/'packaging/source/debian/control').read_text()
+        depends=next(line.split(':',1)[1] for line in control.splitlines() if line.startswith('Build-Depends:'))
+        dependencies={item.strip() for item in depends.split(',')}
+        self.assertIn('gperf',dependencies)
+
+    def test_qsb_path_matches_ubuntu_qt6_package(self):
+        rules=(ROOT/'packaging/source/debian/rules').read_text()
+        flag='-DQSB_EXECUTABLE='
+        self.assertIn(flag,rules)
+        configured=next(token.split('=',1)[1] for token in rules.split() if token.startswith(flag))
+        with tempfile.TemporaryDirectory() as folder:
+            packaged=Path(folder)/'usr/lib/qt6/bin/qsb'
+            packaged.parent.mkdir(parents=True)
+            packaged.write_text('fixture')
+            selected=Path(folder)/configured.lstrip('/')
+            self.assertEqual(selected,packaged)
+            self.assertTrue(selected.is_file())

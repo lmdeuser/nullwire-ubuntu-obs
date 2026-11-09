@@ -1,0 +1,31 @@
+Description: Use the accessible orientation attribute only where Qt provides it
+ QAccessible::Attribute::Orientation was introduced in Qt 6.11. Ubuntu 26.04
+ provides Qt 6.10, where the attribute keys list must simply omit this key.
+Author: dwolfF
+Forwarded: not-needed
+--- a/Telegram/lib_ui/ui/accessible/ui_accessible_widget.cpp
++++ b/Telegram/lib_ui/ui/accessible/ui_accessible_widget.cpp
+@@ -374,7 +374,9 @@
+ QList<QAccessible::Attribute> Widget::attributeKeys() const {
+ 	auto result = QList<QAccessible::Attribute>();
++#if QT_VERSION >= QT_VERSION_CHECK(6, 11, 0)
+ 	if (rp()->accessibilityOrientation().has_value()) {
+ 		result.append(QAccessible::Attribute::Orientation);
+ 	}
++#endif
+ 	return result;
+ }
+@@ -382,11 +384,13 @@
+ QVariant Widget::attributeValue(QAccessible::Attribute key) const {
++#if QT_VERSION >= QT_VERSION_CHECK(6, 11, 0)
+ 	if (key == QAccessible::Attribute::Orientation) {
+ 		if (const auto orientation = rp()->accessibilityOrientation()) {
+ 			// Plain int by design: the UIA bridge reads this back with
+ 			// QVariant::toInt(), and Qt::Orientation isn't a registered
+ 			// metatype here - QVariant::fromValue() of it wouldn't round-trip.
+ 			return int(*orientation);
+ 		}
+ 	}
++#endif
+ 	return QVariant();
+ }

@@ -1,3 +1,27 @@
+nullwire (7.4.1-obs3.test8) resolute; urgency=medium
+
+  * Guard the Thanos renderer check when private Qt API is disabled.
+
+ -- dwolfF <dwolfF@users.noreply.build.opensuse.org>  Mon, 09 Nov 2026 07:00:00 +0500
+
+nullwire (7.4.1-obs3.test7) resolute; urgency=medium
+
+  * Guard the accessible orientation attribute for Qt 6.10.
+
+ -- dwolfF <dwolfF@users.noreply.build.opensuse.org>  Mon, 09 Nov 2026 03:15:00 +0500
+
+nullwire (7.4.1-obs3.test6) resolute; urgency=medium
+
+  * Select Ubuntu's Qt 6 shader baker explicitly.
+
+ -- dwolfF <dwolfF@users.noreply.build.opensuse.org>  Mon, 09 Nov 2026 02:30:00 +0500
+
+nullwire (7.4.1-obs3.test5) resolute; urgency=medium
+
+  * Add gperf for the tdutils generator.
+
+ -- dwolfF <dwolfF@users.noreply.build.opensuse.org>  Mon, 09 Nov 2026 02:00:00 +0500
+
 nullwire (7.4.1-obs3.test4) resolute; urgency=medium
 
   * Generate bindings from the Rust workspace for Cargo metadata lookup.

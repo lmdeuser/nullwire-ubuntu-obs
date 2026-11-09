@@ -1,0 +1,24 @@
+Description: Do not dereference the disabled Thanos renderer
+ When the private Qt API is disabled, ThanosEffectRenderer is only forward
+ declared and the renderer pointer remains null. Guard its failure check with
+ the same condition used by the renderer declaration and the other methods.
+Author: dwolfF
+Forwarded: not-needed
+--- a/Telegram/SourceFiles/ui/effects/thanos_effect.cpp
++++ b/Telegram/SourceFiles/ui/effects/thanos_effect.cpp
+@@ -61,13 +61,15 @@
+ ThanosEffect::ThanosEffect(not_null<QWidget*> parent)
+ : _parent(parent)
+ , _animation([=] {
++#if QT_VERSION >= QT_VERSION_CHECK(6, 7, 0) && !defined DESKTOP_APP_DISABLE_PRIVATE_QT_API
+ 	if (_renderer && _renderer->failed()) {
+ 		ThanosEffectFailedOnce = true;
+ 		hideSurface();
+ 		return;
+ 	}
++#endif
+ 	if (const auto w = surfaceWidget()) {
+ 		w->update();
+ 	}
+ }) {
+ }

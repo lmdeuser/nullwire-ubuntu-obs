@@ -1,2 +1,4 @@
 enable-linux-hardware-video.patch
 nullwire-name.patch
+qt-6.10-accessible-orientation.patch
+disable-private-qt-thanos.patch
