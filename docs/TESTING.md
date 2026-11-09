@@ -14,6 +14,8 @@ Existing code requires characterization coverage before further modification. An
 
 ## Current evidence
 
+- Exact verification input: a copy-boundary fixture changed the source deb after copying it into the verifier build context. The previous helper still claimed success for a different input hash. The fixed helper anchors the hash before the copy, checks both copies before starting the container, and rechecks after it. The positive unchanged-input path still reaches the container checks. This is a guard test with a fake Docker boundary, not an actual GUI acceptance result.
+
 - Immutable dependency bundle: source-preparation tests showed that changed bytes and a missing dependency pin were accepted before the fix. The preparer now requires the recorded SHA-256 and verifies actual archive bytes before creating/uploading source inputs; reviewed inputs still pass.
 
 - Binding-generator working directory: the build-command fixture invokes real Cargo metadata. It failed with the same missing `Cargo.toml` error as OBS when run from the package root. Running the binding command from the Rust workspace makes the metadata probe pass. The fixture stops before unrelated compilation; actual binding generation remains an OBS integration check.
