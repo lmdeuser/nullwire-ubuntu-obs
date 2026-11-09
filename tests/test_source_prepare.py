@@ -2,7 +2,9 @@
 import hashlib
 import importlib.util
 import json
+import os
 from pathlib import Path
+import subprocess
 import sys
 import tempfile
 import unittest
@@ -74,3 +76,22 @@ class BuildDependencyTests(unittest.TestCase):
             selected=Path(folder)/configured.lstrip('/')
             self.assertEqual(selected,packaged)
             self.assertTrue(selected.is_file())
+
+    def test_lto_is_disabled_for_memory_bounded_link(self):
+        rules=(ROOT/'packaging/source/debian/rules').read_text()
+        options=next(line.split('=',1)[1].strip() for line in rules.splitlines() if line.startswith('export DEB_BUILD_MAINT_OPTIONS'))
+        env=os.environ.copy()
+        env['DEB_BUILD_MAINT_OPTIONS']=options
+        result=subprocess.run(['dpkg-buildflags','--get','CXXFLAGS'],cwd=ROOT,env=env,text=True,capture_output=True,check=True)
+        flags=result.stdout.split()
+        self.assertFalse(any(flag.startswith('-flto') for flag in flags),result.stdout)
+
+    def test_release_link_omits_oversized_debug_sections(self):
+        rules=(ROOT/'packaging/source/debian/rules').read_text()
+        append=next((line.split('=',1)[1].strip() for line in rules.splitlines() if line.startswith('export DEB_CXXFLAGS_MAINT_APPEND')),'')
+        env=os.environ.copy()
+        env['DEB_CXXFLAGS_MAINT_APPEND']=append
+        result=subprocess.run(['dpkg-buildflags','--get','CXXFLAGS'],cwd=ROOT,env=env,text=True,capture_output=True,check=True)
+        flags=result.stdout.split()
+        debug=[flag for flag in flags if flag in {'-g','-g0','-g1','-g2','-g3'}]
+        self.assertEqual(debug[-1],'-g0',result.stdout)

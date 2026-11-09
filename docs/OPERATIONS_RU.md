@@ -63,4 +63,18 @@ obs3.test6 остановилась на `QAccessible::Attribute::Orientation`: 
 
 ## TDD: Thanos без приватного Qt API
 
-obs3.test7 обнаружила обращение `_renderer->failed()` к неполному типу в animation lambda: при `DESKTOP_APP_DISABLE_PRIVATE_QT_API` renderer только forward-declared и указатель остаётся null. Focused test воспроизвёл ошибку до патча и проверил обе конфигурации после добавления такого же guard, как у объявления renderer. Патч применён к реальному исходнику с `--fuzz=0`; все 36 тестов зелёные. Отправлена obs3.test8, исходная ревизия `a21734933948a814ea7c8e174b7c9e60`; полная компиляция и пакетная приёмка ещё не подтверждены.
+obs3.test7 обнаружила обращение `_renderer->failed()` к неполному типу в animation lambda: при `DESKTOP_APP_DISABLE_PRIVATE_QT_API` renderer только forward-declared и указатель остаётся null. Focused test воспроизвёл ошибку до патча и проверил обе конфигурации после добавления такого же guard, как у объявления renderer. Патч применён к реальному исходнику с `--fuzz=0`; все 36 тестов зелёные. obs3.test8 скомпилировала 100% клиента.
+
+## TDD: компоновка без LTO
+
+На финальной компоновке obs3.test8 процесс `lto1` был остановлен сигналом `Killed`. Тест с настоящим `dpkg-buildflags` сначала подтвердил наличие `-flto=auto`, а после добавления `optimize=-lto` проверил его отсутствие. obs3.test9 прошла границу LTO.
+
+## TDD: размер debug-секций
+
+obs3.test9 остановилась на `relocation truncated to fit` в `.debug_loclists`. Новый тест effective CXXFLAGS сначала увидел завершающий `-g`, затем подтвердил приоритет `-g0` после `DEB_CXXFLAGS_MAINT_APPEND=-g0`. Все 40 тестов зелёные.
+
+## Успешная исходная сборка и пакетная приёмка
+
+OBS завершила obs3.test10 со статусом `succeeded`: исходная ревизия `2c1100f5c8355efc1748fc2c235c5f33`, expanded build revision `ed8cb5685c0de537d48429e0c27042d3`. Получен `nullwire-buildtest_7.4.1-obs3.test10_amd64.deb`, 70 701 590 байт, SHA-256 `bc988fc54c28a60eda7aca111e73fb664498ee1fea258df2176236a803569ca8`.
+
+В чистом контейнере Ubuntu 26.04 точный пакет установился с зависимостями, прошёл desktop/link checks и открыл видимое offline-окно 818×642 с изолированным профилем без GPU. Удаление и повторная установка прошли; SHA-256 после проверки не изменился. Это не доказывает GPU playback или авторизованную работу. Тестовый API identity по-прежнему запрещает login, stable release и миграцию; Snap-профиль не изменялся.

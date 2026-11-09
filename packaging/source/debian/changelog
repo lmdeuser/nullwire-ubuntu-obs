@@ -1,3 +1,15 @@
+nullwire (7.4.1-obs3.test10) resolute; urgency=medium
+
+  * Omit oversized debug sections from the release link.
+
+ -- dwolfF <dwolfF@users.noreply.build.opensuse.org>  Mon, 09 Nov 2026 15:00:00 +0500
+
+nullwire (7.4.1-obs3.test9) resolute; urgency=medium
+
+  * Disable LTO for the memory-bounded final link.
+
+ -- dwolfF <dwolfF@users.noreply.build.opensuse.org>  Mon, 09 Nov 2026 11:00:00 +0500
+
 nullwire (7.4.1-obs3.test8) resolute; urgency=medium
 
   * Guard the Thanos renderer check when private Qt API is disabled.

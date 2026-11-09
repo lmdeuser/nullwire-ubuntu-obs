@@ -5,7 +5,8 @@ export CARGO_NET_OFFLINE := true
 export CARGO_BUILD_JOBS := 2
 export CMAKE_PREFIX_PATH := $(CURDIR)/.build-deps/usr
 export PKG_CONFIG_PATH := $(CURDIR)/.build-deps/usr/lib/pkgconfig:$(CURDIR)/.build-deps/usr/lib/x86_64-linux-gnu/pkgconfig
-export DEB_BUILD_MAINT_OPTIONS = hardening=+all
+export DEB_BUILD_MAINT_OPTIONS = hardening=+all optimize=-lto
+export DEB_CXXFLAGS_MAINT_APPEND = -g0
 
 %:
 	mkdir -p "$(TMPDIR)"

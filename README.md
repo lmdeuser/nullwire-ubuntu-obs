@@ -4,7 +4,7 @@
 
 NullWire is an independent Telegram API desktop client being prepared for Ubuntu 26.04 amd64. The intended release is built from Telegram Desktop sources, installed as a native Debian package, and updated through a signed Open Build Service APT repository. It is not affiliated with Telegram.
 
-**Status: source-build development. There is no released NullWire package yet.** An initial upstream-binary repack reached a successful OBS staging build, but it was superseded by the source-build requirement and must not be released. Installation and Snap migration are not complete. See [verification status](docs/STATUS.md).
+**Status: isolated source build verified; there is no released production package yet.** An initial upstream-binary repack reached a successful OBS staging build, but it was superseded by the source-build requirement and must not be released. The source-built test deb passed installation and offline-window checks; production APT installation, GPU playback and Snap migration are not complete. See [verification status](docs/STATUS.md).
 
 ## Intended behavior
 
@@ -33,7 +33,7 @@ python3 -m unittest discover -s tests -v
 bash -n tools/*.sh
 ```
 
-The draft `packaging/source/debian/` recipe is an isolated build test using the limited sample API identity. It has not completed an OBS source build and must not be used for login or a stable release.
+The `packaging/source/debian/` recipe is an isolated build test using the limited sample API identity. OBS built `7.4.1-obs3.test10` successfully, and the exact deb passed clean installation, offline visible-window and remove/reinstall checks. It still must not be used for login, migration or a stable release.
 
 The Linux hardware-decoding default patch is in `packaging/source/debian/patches/`. It was checked against the exact upstream 7.4.1 full-source archive with zero patch fuzz; this check is not a compilation or playback test.
 
